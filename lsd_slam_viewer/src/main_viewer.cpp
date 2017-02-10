@@ -28,6 +28,7 @@
 #include "lsd_slam_viewer/LSDSLAMViewerParamsConfig.h"
 #include <qapplication.h>
 
+#include <cstring>
 
 #include "lsd_slam_viewer/keyframeGraphMsg.h"
 #include "lsd_slam_viewer/keyframeMsg.h"
@@ -172,8 +173,7 @@ int main( int argc, char** argv )
 	viewer->show();
 
 	boost::thread rosThread;
-
-	if(argc > 1)
+	if(argc > 1 && (bool)strncmp(argv[1],"_",1) )
 	{
 		rosThread = boost::thread(rosFileLoop, argc, argv);
 	}

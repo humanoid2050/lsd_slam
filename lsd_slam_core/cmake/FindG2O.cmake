@@ -19,9 +19,9 @@ IF(UNIX)
 
   MESSAGE(STATUS "Searching for g2o ...")
   FIND_PATH(G2O_INCLUDE_DIR
-    NAMES core math_groups types
+    NAMES g2o
     PATHS /usr/local /usr /opt/ros/$ENV{ROS_DISTRO}/
-    PATH_SUFFIXES include/g2o include)
+    PATH_SUFFIXES include)
 
   IF (G2O_INCLUDE_DIR)
     MESSAGE(STATUS "Found g2o headers in: ${G2O_INCLUDE_DIR}")

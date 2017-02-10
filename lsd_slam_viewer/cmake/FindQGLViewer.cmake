@@ -1,6 +1,15 @@
 # Need to find both Qt4 and QGLViewer if the QQL support is to be built
-FIND_PACKAGE(Qt4 COMPONENTS QtCore QtXml QtOpenGL QtGui)
-include(${QT_USE_FILE})
+#FIND_PACKAGE(Qt4 COMPONENTS QtCore QtXml QtOpenGL QtGui)
+#include(${QT_USE_FILE})
+
+FIND_PACKAGE(Qt5 COMPONENTS Core Xml OpenGL Gui Widgets)
+
+IF(NOT Qt5_FOUND)
+  MESSAGE("Qt5 not found. Install it and set Qt5_DIR accordingly")
+  IF (WIN32)
+    MESSAGE("  In Windows, Qt5_DIR should be something like C:/Qt/5.4/msvc2013_64_opengl/lib/cmake/Qt5")
+  ENDIF()
+ENDIF()
 
 FIND_PATH(QGLVIEWER_INCLUDE_DIR qglviewer.h
     /usr/include/QGLViewer
@@ -16,17 +25,20 @@ find_library(QGLVIEWER_LIBRARY_RELEASE
         /usr/local/lib
         /opt/local/lib
         /sw/lib
+        /usr/lib/x86_64-linux-gnu
         ENV QGLVIEWERROOT
         ENV LD_LIBRARY_PATH
         ENV LIBRARY_PATH
   PATH_SUFFIXES QGLViewer QGLViewer/release
 )
+message(QGLVIEWER_LIBRARY_RELEASE: ${QGLVIEWER_LIBRARY_RELEASE})
 find_library(QGLVIEWER_LIBRARY_DEBUG
   NAMES dqglviewer dQGLViewer dQGLViewer2 QGLViewerd2
   PATHS /usr/lib
         /usr/local/lib
         /opt/local/lib
         /sw/lib
+        /usr/lib/x86_64-linux-gnu
         ENV QGLVIEWERROOT
         ENV LD_LIBRARY_PATH
         ENV LIBRARY_PATH

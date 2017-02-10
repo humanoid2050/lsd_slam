@@ -27,18 +27,20 @@ find_package(OpenGL REQUIRED)
 set(QT_USE_QTOPENGL TRUE)
 set(QT_USE_QTXML TRUE)
 find_package(QGLViewer REQUIRED)
-find_package(Eigen REQUIRED)
+find_package(Eigen3 REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(Boost REQUIRED COMPONENTS thread)
 
 include_directories(${QGLVIEWER_INCLUDE_DIR}
 		    ${catkin_INCLUDE_DIRS} 
-		    ${EIGEN_INCLUDE_DIR}
-		    ${QT_INCLUDES} )
+		    ${EIGEN3_INCLUDE_DIR}
+		    ${Qt5Core_INCLUDE_DIRS}
+		    ${Qt5OpenGL_INCLUDE_DIRS}
+            ${Qt5Xml_INCLUDE_DIRS} )
 
 # SSE flags
 set(CMAKE_CXX_FLAGS
-   "${CMAKE_CXX_FLAGS} -march=native -Wall -std=c++0x"
+   "${CMAKE_CXX_FLAGS} -march=native -Wall -std=c++11 -fPIC"
 )
 
 add_message_files(DIRECTORY msg FILES keyframeMsg.msg keyframeGraphMsg.msg)
@@ -69,11 +71,12 @@ include_directories(
 )  
 
 add_executable(viewer src/main_viewer.cpp ${SOURCE_FILES} ${HEADER_FILES})
-target_link_libraries(viewer ${QGLViewer_LIBRARIES}
+add_dependencies(viewer lsd_slam_viewer_generate_messages)
+target_link_libraries(viewer 
 			     ${QGLVIEWER_LIBRARY} 
 			     ${catkin_LIBRARIES}
 			     ${Boost_LIBRARIES}
-			     ${QT_LIBRARIES}
+			     ${Qt5OpenGL_LIBRARIES}
 			     GL glut GLU
 		     )
 
