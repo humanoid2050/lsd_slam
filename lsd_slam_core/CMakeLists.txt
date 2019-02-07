@@ -16,6 +16,7 @@ find_package(catkin REQUIRED COMPONENTS
   image_transport
   roscpp
   rosbag
+  message_generation
 )
 
 find_package(OpenCV REQUIRED)
@@ -34,6 +35,9 @@ message("-- G2O_INCLUDE_DIR : " ${G2O_INCLUDE_DIR})
 #include_directories(${PROJECT_SOURCE_DIR}/thirdparty/openFabMap/include)
 #add_definitions("-DHAVE_FABMAP")
 #set(FABMAP_LIB openFABMAP )
+
+add_message_files(DIRECTORY msg FILES keyframeMsg.msg keyframeGraphMsg.msg)
+generate_messages(DEPENDENCIES)
 
 generate_dynamic_reconfigure_options(
   cfg/LSDDebugParams.cfg

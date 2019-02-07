@@ -43,8 +43,7 @@ set(CMAKE_CXX_FLAGS
    "${CMAKE_CXX_FLAGS} -march=native -Wall -std=c++11 -fPIC"
 )
 
-add_message_files(DIRECTORY msg FILES keyframeMsg.msg keyframeGraphMsg.msg)
-generate_messages(DEPENDENCIES)
+
 
 generate_dynamic_reconfigure_options(
   cfg/LSDSLAMViewerParams.cfg
@@ -71,7 +70,7 @@ include_directories(
 )  
 
 add_executable(viewer src/main_viewer.cpp ${SOURCE_FILES} ${HEADER_FILES})
-add_dependencies(viewer lsd_slam_viewer_generate_messages)
+add_dependencies(viewer lsd_slam_core_generate_messages)
 target_link_libraries(viewer 
 			     ${QGLVIEWER_LIBRARY} 
 			     ${catkin_LIBRARIES}
