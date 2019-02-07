@@ -9,8 +9,6 @@ project(lsd_slam_core)
 #  MinSizeRel : w/o debug symbols, w/ optimization, stripped binaries
 set(CMAKE_BUILD_TYPE Release)
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake)
-
 find_package(catkin REQUIRED COMPONENTS
   cv_bridge
   dynamic_reconfigure
@@ -20,9 +18,9 @@ find_package(catkin REQUIRED COMPONENTS
   rosbag
 )
 
+find_package(OpenCV REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(X11 REQUIRED)
-find_package(OpenCV REQUIRED)
 include(cmake/FindG2O.cmake)
 include(cmake/FindSuiteParse.cmake)
 
@@ -89,26 +87,26 @@ set(SOURCE_FILES
 )
 
 include_directories(
+  src
   include
+  ${catkin_INCLUDE_DIRS}
+  ${G2O_INCLUDE_DIR}
   ${EIGEN3_INCLUDE_DIR}
+  ${OpenCV_INCLUDE_DIRS}
   ${PROJECT_SOURCE_DIR}/src
   ${PROJECT_SOURCE_DIR}/thirdparty/Sophus
   ${CSPARSE_INCLUDE_DIR} #Has been set by SuiteParse
   ${CHOLMOD_INCLUDE_DIR} #Has been set by SuiteParse
-  ${G2O_INCLUDE_DIR}
 )
-
 
 # build shared library.
 add_library(lsdslam SHARED ${SOURCE_FILES})
-add_dependencies(lsdslam lsd_slam_viewer_generate_messages)
-target_link_libraries(lsdslam ${FABMAP_LIB} ${G2O_LIBRARIES} ${catkin_LIBRARIES} cxsparse X11 ${OpenCV_LIBS})
+target_link_libraries(lsdslam ${FABMAP_LIB} ${G2O_LIBRARIES} ${catkin_LIBRARIES} cxsparse ${OpenCV_LIBRARIES})
 #rosbuild_link_boost(lsdslam thread)
 
-
 # build live ros node
-add_executable(live_slam src/main_live_odometry.cpp)
-target_link_libraries(live_slam lsdslam ${catkin_LIBRARIES} ${G2O_LIBRARIES})
+#add_executable(live_slam src/main_live_odometry.cpp)
+#target_link_libraries(live_slam lsdslam ${catkin_LIBRARIES} ${G2O_LIBRARIES} ${opencv_LIBRARIES} ${X11_LIBRARIES})
 
 
 # build image node

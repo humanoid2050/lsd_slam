@@ -217,7 +217,7 @@ int main( int argc, char** argv )
 	int runningIDX=0;
 	float fakeTimeStamp = 0;
 
-	ros::Rate r(hz);
+	ros::Rate r(100);
 
 	for(unsigned int i=0;i<files.size();i++)
 	{

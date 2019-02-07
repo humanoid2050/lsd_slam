@@ -27,7 +27,7 @@ namespace lsd_slam
 {
 
 
-G2O_USE_TYPE_GROUP(sba);
+//G2O_USE_TYPE_GROUP(sba);
 
 G2O_REGISTER_TYPE_GROUP(sim3sophus);
 
