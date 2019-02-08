@@ -24,8 +24,8 @@
 #define KEYFRAMEGRAPHDISPLAY_H_
 
 
-#include "lsd_slam_viewer/keyframeGraphMsg.h"
-#include "lsd_slam_viewer/keyframeMsg.h"
+#include "lsd_slam_core/keyframeGraphMsg.h"
+#include "lsd_slam_core/keyframeMsg.h"
 #include "boost/thread.hpp"
 
 class KeyFrameDisplay;
@@ -60,8 +60,8 @@ public:
 
 	void draw();
 
-	void addMsg(lsd_slam_viewer::keyframeMsgConstPtr msg);
-	void addGraphMsg(lsd_slam_viewer::keyframeGraphMsgConstPtr msg);
+	void addMsg(lsd_slam_core::keyframeMsgConstPtr msg);
+	void addGraphMsg(lsd_slam_core::keyframeGraphMsgConstPtr msg);
 
 
 

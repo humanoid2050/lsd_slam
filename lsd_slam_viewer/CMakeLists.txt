@@ -30,7 +30,7 @@ find_package(QGLViewer REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(Boost REQUIRED COMPONENTS thread)
-
+message("QGLVIEWER_LIBRARIES ${QGLVIEWER_LIBRARIES}")
 include_directories(${QGLVIEWER_INCLUDE_DIR}
 		    ${catkin_INCLUDE_DIRS} 
 		    ${EIGEN3_INCLUDE_DIR}
@@ -70,12 +70,13 @@ include_directories(
 )  
 
 add_executable(viewer src/main_viewer.cpp ${SOURCE_FILES} ${HEADER_FILES})
-add_dependencies(viewer lsd_slam_core_generate_messages)
+add_dependencies(viewer lsd_slam_core_generate_messages ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(viewer 
 			     ${QGLVIEWER_LIBRARY} 
 			     ${catkin_LIBRARIES}
 			     ${Boost_LIBRARIES}
 			     ${Qt5OpenGL_LIBRARIES}
+                 QGLViewer-qt4
 			     GL glut GLU
 		     )
 

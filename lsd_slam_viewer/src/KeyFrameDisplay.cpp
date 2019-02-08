@@ -24,11 +24,11 @@
 #include <stdio.h>
 #include "settings.h"
 
+#include "opencv2/opencv.hpp"
+
 #include <GL/glx.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
-
-#include "opencv2/opencv.hpp"
 
 #include "ros/package.h"
 
@@ -62,7 +62,7 @@ KeyFrameDisplay::~KeyFrameDisplay()
 }
 
 
-void KeyFrameDisplay::setFrom(lsd_slam_viewer::keyframeMsgConstPtr msg)
+void KeyFrameDisplay::setFrom(lsd_slam_core::keyframeMsgConstPtr msg)
 {
 	// copy over campose.
 	memcpy(camToWorld.data(), msg->camToWorld.data(), 7*sizeof(float));
