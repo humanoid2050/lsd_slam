@@ -20,6 +20,7 @@
 
 
 #include "ros/ros.h"
+
 #include "boost/thread.hpp"
 #include "settings.h"
 #include "PointCloudViewer.h"
@@ -155,6 +156,7 @@ int main( int argc, char** argv )
 
 
 	printf("Started QApplication thread\n");
+    
 	// Read command lines arguments.
 	QApplication application(argc,argv);
 

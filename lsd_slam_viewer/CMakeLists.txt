@@ -24,19 +24,21 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 find_package(OpenGL REQUIRED)
+find_package(Qt REQUIRED COMPONENTS QtOpenGL)
 set(QT_USE_QTOPENGL TRUE)
 set(QT_USE_QTXML TRUE)
 find_package(QGLViewer REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(Boost REQUIRED COMPONENTS thread)
-message("QGLVIEWER_LIBRARIES ${QGLVIEWER_LIBRARIES}")
+message("QGLViewer_INCLUDE_DIRS ${QGLViewer_INCLUDE_DIRS}")
 include_directories(${QGLVIEWER_INCLUDE_DIR}
 		    ${catkin_INCLUDE_DIRS} 
 		    ${EIGEN3_INCLUDE_DIR}
-		    ${Qt5Core_INCLUDE_DIRS}
-		    ${Qt5OpenGL_INCLUDE_DIRS}
-            ${Qt5Xml_INCLUDE_DIRS} )
+		    
+            ${EIGEN_INCLUDE_DIR}
+		    ${QT_INCLUDES} )
+            
 
 # SSE flags
 set(CMAKE_CXX_FLAGS
@@ -75,7 +77,7 @@ target_link_libraries(viewer
 			     ${QGLVIEWER_LIBRARY} 
 			     ${catkin_LIBRARIES}
 			     ${Boost_LIBRARIES}
-			     ${Qt5OpenGL_LIBRARIES}
+			     ${QT_LIBRARIES}
                  QGLViewer-qt4
 			     GL glut GLU
 		     )
